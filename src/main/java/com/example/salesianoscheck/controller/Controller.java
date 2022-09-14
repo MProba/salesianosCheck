@@ -2,13 +2,22 @@ package com.example.salesianoscheck.controller;
 
 import com.example.salesianoscheck.models.dto.CronDTO;
 import com.example.salesianoscheck.models.service.CronService;
+import com.example.salesianoscheck.services.ScraperService;
 import com.example.salesianoscheck.utils.Constants;
+import com.microsoft.playwright.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.support.CronExpression;
+import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 public class Controller {
@@ -26,6 +35,9 @@ public class Controller {
 
     @Autowired
     private CronService cronService;
+
+    @Autowired
+    private ScraperService scraperService;
 
     @GetMapping(path = Constants.ACTIVATE_CHECKIN_PATH)
     public void activateCheckIn() {
@@ -67,4 +79,14 @@ public class Controller {
         }
     }
 
+    @GetMapping(path = "/pruebas")
+    public String pruebas() {
+        /*
+        CronExpression expression = CronExpression.parse("* 25 14 * * 2-3");
+        LocalDateTime result = expression.next(LocalDateTime.now());
+        System.out.println(result);
+        return result.toString();
+         */
+        return null;
+    }
 }

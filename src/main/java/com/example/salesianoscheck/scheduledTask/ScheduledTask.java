@@ -42,12 +42,13 @@ public class ScheduledTask {
     @Autowired
     private CronService cronService;
 
-    @Scheduled(cron = "* 30 8 * * 1-2", zone = "Europe/Madrid")
+    @Scheduled(cron = "* 30 8 * * 2-3", zone = "Europe/Madrid")
     public void scheduleTaskCheckIn() {
         try{
             CronDTO cronDTO = cronService.getCronById(Constants.ID_1);
             if(cronDTO.getStatus()==1){
-                generateDelay();
+                Long delay = Math.round((ThreadLocalRandom.current().nextDouble(minDelay,maxDelay)) * 1000);
+                generateDelay(delay);
                 scraperService.loginScraper(url,user,pass,Constants.SELECTOR_OPTION_IN);
             }
         } catch(Exception ex){
@@ -55,12 +56,16 @@ public class ScheduledTask {
         }
     }
 
-    @Scheduled(cron = "* 27 14 * * 1-2", zone = "Europe/Madrid")
+    @Scheduled(cron = "* 27 14 * * 2-3", zone = "Europe/Madrid")
     public void scheduleTaskCheckOut() {
+        LOG.info("Entrando no Cron de checkOut");
         try{
             CronDTO cronDTO = cronService.getCronById(Constants.ID_2);
             if(cronDTO.getStatus()==1){
-                generateDelay();
+                LOG.info("Entrando no Cron de checkOut");
+                Long delay = Math.round((ThreadLocalRandom.current().nextDouble(minDelay,maxDelay)) * 1000);
+                LOG.info("Producindo delay de: {}",delay);
+                generateDelay(delay);
                 scraperService.loginScraper(url,user,pass,Constants.SELECTOR_OPTION_OUT);
             }
         } catch(Exception ex){
@@ -68,9 +73,9 @@ public class ScheduledTask {
         }
     }
 
-    private void generateDelay(){
+    private void generateDelay(Long delay){
         try {
-            Thread.sleep((long)(ThreadLocalRandom.current().nextDouble(minDelay,maxDelay)) * 1000);
+            Thread.sleep(delay);
         } catch (InterruptedException ie) {
             LOG.error("Erro xerando delay", ie.getMessage());
             Thread.currentThread().interrupt();

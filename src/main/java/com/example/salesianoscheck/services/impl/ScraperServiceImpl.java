@@ -31,7 +31,7 @@ public class ScraperServiceImpl implements ScraperService {
             page.locator(Constants.LOGIN_BUTTON).click();
             page.locator(Constants.CHECK_OPTION_BUTTON).click();
             page.locator(Constants.SELECTOR_TAG).selectOption(checkValue);
-            //page.locator(Constants.CHECK_BUTTON).click();
+            page.locator(Constants.CHECK_BUTTON).click();
             LOGGER.info("Rexistro realizado con éxito");
         }catch(TimeoutError ex){
             LOGGER.error("Produciuse un erro de timeout timeout. {}",ex.getMessage());

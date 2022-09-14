@@ -9,7 +9,7 @@ public class Constants {
     public static final String SELECTOR_TAG = "select[name=\"accion\"]";
     public static final String SELECTOR_OPTION_IN = "Entrada";
     public static final String SELECTOR_OPTION_OUT = "Salida";
-    public static final String CHECK_BUTTON = "select[value=\"Registrar\"]";
+    public static final String CHECK_BUTTON = ".wpcf7-submit >> nth=0";
 
     public static final String CHECK_IN = "checkIn";
     public static final String CHECK_OUT = "checkOut";
