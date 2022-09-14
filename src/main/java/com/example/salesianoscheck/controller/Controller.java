@@ -4,6 +4,8 @@ import com.example.salesianoscheck.models.dto.CronDTO;
 import com.example.salesianoscheck.models.service.CronService;
 import com.example.salesianoscheck.services.CronManagementService;
 import com.example.salesianoscheck.services.ScraperService;
+import com.example.salesianoscheck.services.TelegramChannelService;
+import com.example.salesianoscheck.telegram.TelegramService;
 import com.example.salesianoscheck.utils.Constants;
 import com.microsoft.playwright.*;
 import org.slf4j.Logger;
@@ -37,6 +39,9 @@ public class Controller {
     @Autowired
     private CronManagementService cronManagementService;
 
+    @Autowired
+    private TelegramChannelService telegramChannelService;
+
     @GetMapping(path = Constants.ACTIVATE_CHECKIN_PATH)
     public void activateCheckIn() {
         cronManagementService.activateCheckIn();
@@ -59,6 +64,7 @@ public class Controller {
 
     @GetMapping(path = "/pruebas")
     public String pruebas() {
+        telegramChannelService.sendMessageToChannel("Proba");
         /*
         CronExpression expression = CronExpression.parse("* 25 14 * * 2-3");
         LocalDateTime result = expression.next(LocalDateTime.now());

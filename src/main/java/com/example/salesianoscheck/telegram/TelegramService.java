@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 
 @Component
