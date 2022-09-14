@@ -2,6 +2,7 @@ package com.example.salesianoscheck.controller;
 
 import com.example.salesianoscheck.models.dto.CronDTO;
 import com.example.salesianoscheck.models.service.CronService;
+import com.example.salesianoscheck.services.CronManagementService;
 import com.example.salesianoscheck.services.ScraperService;
 import com.example.salesianoscheck.utils.Constants;
 import com.microsoft.playwright.*;
@@ -34,49 +35,26 @@ public class Controller {
     String pass;
 
     @Autowired
-    private CronService cronService;
-
-    @Autowired
-    private ScraperService scraperService;
+    private CronManagementService cronManagementService;
 
     @GetMapping(path = Constants.ACTIVATE_CHECKIN_PATH)
     public void activateCheckIn() {
-        try{
-            cronService.modifyCronById(new CronDTO(Constants.ID_1,Constants.CHECK_IN,Constants.ON));
-            LOG.info("Activado Cron de checkIn");
-        } catch(Exception ex){
-            LOG.error("Erro cancelando a activacion do Cron de checkIn", ex.getMessage());
-        }
+        cronManagementService.activateCheckIn();
     }
 
     @GetMapping(path = Constants.ACTIVATE_CHECKOUT_PATH)
     public void activateCheckOut() {
-        try{
-            cronService.modifyCronById(new CronDTO(Constants.ID_2,Constants.CHECK_OUT,Constants.ON));
-            LOG.info("Activado Cron de checkOut");
-        } catch(Exception ex){
-            LOG.error("Erro cancelando a activacion do Cron de checkOut", ex.getMessage());
-        }
+        cronManagementService.activateCheckOut();
     }
 
     @GetMapping(path = Constants.CANCEL_CHECKIN_PATH)
     public void cancelCheckIn() {
-        try{
-            cronService.modifyCronById(new CronDTO(Constants.ID_1,Constants.CHECK_IN,Constants.OFF));
-            LOG.info("Desactivado Cron de checkIn");
-        } catch(Exception ex){
-            LOG.error("Erro desactivando o Cron de checkIn", ex.getMessage());
-        }
+        cronManagementService.cancelCheckIn();
     }
 
     @GetMapping(path = Constants.CANCEL_CHECKOUT_PATH)
     public void cancelCheckOut() {
-        try{
-            cronService.modifyCronById(new CronDTO(Constants.ID_2,Constants.CHECK_OUT,Constants.OFF));
-            LOG.info("Desactivado Cron de checkOut");
-        } catch(Exception ex){
-            LOG.error("Erro desactivando o Cron de checkOut", ex.getMessage());
-        }
+        cronManagementService.cancelCheckOut();
     }
 
     @GetMapping(path = "/pruebas")
